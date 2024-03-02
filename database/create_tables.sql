@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS "Scouting_Report" (
 	"scouting_report_id"	INTEGER,
 	"player_id"	INTEGER NOT NULL,
 	"strengths"	TEXT,
-	"weaknesses"	TEXT,
+	"weaknesses" TEXT,
 	"notes"	TEXT,
 	PRIMARY KEY("scouting_report_id" AUTOINCREMENT),
 	FOREIGN KEY("player_id") REFERENCES "Players"("players_id")
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS "Stats" (
 	"count"	INTEGER,
 	PRIMARY KEY("stats_id" AUTOINCREMENT),
 	FOREIGN KEY("players_id") REFERENCES "Players"("players_id")
-);
+);gi
 
 CREATE TABLE IF NOT EXISTS "Draft_Pick" (
 	"draft_pick_id"	INTEGER,
