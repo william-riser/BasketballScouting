@@ -1,2 +1,2 @@
-INSERT INTO Draft_Board(draft_board_id, creator, pick1, pick2, pick3, pick4, pick5, pick6, pick7, pick8, pick9, pick10, pick11, pick12, pick13, pick14) 
-VALUES(1, "William", 1, 2, 3, 5, 4, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+INSERT INTO Draft_Board (name) VALUES("William's Board");
+INSERT INTO Draft_Board (name) VALUES("Other Board");
