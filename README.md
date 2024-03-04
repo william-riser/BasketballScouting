@@ -10,8 +10,12 @@ All files for Points 1-7 are in the file named "Points1-7"
 ### Frontend
 * Javascript
 * React
-* Tailwindcss
+* HTML
+* CSS
 
 ### Backend
 * Express
+* Node
+
+### Database 
 * SQLite
