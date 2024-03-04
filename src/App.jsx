@@ -1,16 +1,14 @@
 import './index.css';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import TestPage from './components/TestPage';
 
 function App() {
-
   return (
-    <>
-      <div className='bg-blue-500'>
-       
-      <p className='font-bold text-white text-center'>Basketball Scouting</p>
-
-       </div>
-    </>
-  )
+    <div>
+      <TestPage />
+    </div>
+  );
 }
 
-export default App
+export default App;
