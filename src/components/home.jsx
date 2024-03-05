@@ -16,7 +16,7 @@ const HomePage = () => {
               const result = await axios.get('http://localhost:3001/data');
               console.log("API Response:", result.data.data); // Log API response
               setSearchTerm(result.data.data); 
-              navigate(`/searchResults?q=${searchTerm}`); 
+              navigate(`/searchResults?name=${searchTerm}`); 
           } catch (error) {
               console.error(error);
           }

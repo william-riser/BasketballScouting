@@ -48,10 +48,8 @@ app.get("/api/stats", (req, res) => {
 app.get("/players", (req, res) => {
   const { name } = req.query;
   db.all(
-    `SELECT * 
-    FROM Player 
-    WHERE name LIKE '%' || ? || '%'`,
-    [`%${name}%`],
+    `SELECT * FROM Player WHERE name LIKE ?`,
+    ['%'+name+'%'],
     (err, rows) => {
       if (err) {
         res.status(400).json({ error: err.message });
