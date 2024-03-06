@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import for navigation
+import { useNavigate } from 'react-router-dom'; 
 
 
 
@@ -8,13 +8,12 @@ const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
 
-  const navigate = useNavigate(); // Initialize useNavigate
-
+  const navigate = useNavigate(); 
   const handleSearch = async () => {
       const fetchData = async () => {
           try {
               const result = await axios.get('http://localhost:3001/data');
-              console.log("API Response:", result.data.data); // Log API response
+              console.log("API Response:", result.data.data); 
               setSearchTerm(result.data.data); 
               navigate(`/searchResults?name=${searchTerm}`); 
           } catch (error) {

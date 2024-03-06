@@ -13,6 +13,7 @@ const port = 3001;
 app.use(cors());
 app.use(express.json());
 
+// Get all players 
 app.get("/data", (req, res) => {
   db.all(
     `SELECT * 
@@ -28,6 +29,7 @@ app.get("/data", (req, res) => {
   );
 });
 
+// Get all stats
 app.get("/api/stats", (req, res) => {
   db.all(
     `SELECT * 
@@ -44,6 +46,8 @@ app.get("/api/stats", (req, res) => {
   );
 });
 
+
+// Gets players based on name
 app.get("/players", (req, res) => {
   const { name } = req.query;
   db.all(
@@ -59,6 +63,7 @@ app.get("/players", (req, res) => {
   );
 });
 
+// Gets player based on ID
 app.get("/players/:id", (req, res) => {
   const { id } = req.params;
   db.all(
@@ -78,10 +83,10 @@ app.post("/new-data", (req, res) => {
   res.send("Data added"); 
 });
 
+
+// Adds a new player to the database
 app.post('/addPlayer', (req, res) => {
   const { school_id, name, age, height, weight, position } = req.body;
-
-  // Insert player into the database
   const sql = 'INSERT INTO Player (school_id, name, age, height, weight, position) VALUES (?, ?, ?, ?, ?, ?)';
   const values = [school_id, name, age, height, weight, position];
 
@@ -89,9 +94,20 @@ app.post('/addPlayer', (req, res) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-
-    // Player successfully added
     res.json({ message: 'Player added successfully', player_id: this.lastID });
+  });
+});
+
+// Deletes a player from the database
+app.delete('/players/:id', (req, res) => {
+  const playerId = req.params.id;
+  const sql = 'DELETE FROM Player WHERE player_id = ?';
+
+  db.run(sql, [playerId], function (err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({ message: 'Player deleted successfully', player_id: playerId });
   });
 });
 

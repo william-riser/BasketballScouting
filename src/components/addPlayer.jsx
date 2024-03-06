@@ -23,10 +23,8 @@ const AddPlayer = () =>{
         try {
           const response = await axios.post('http://localhost:3001/addPlayer', formData);
           console.log(response.data);
-          // Handle success, e.g., show a success message to the user
         } catch (error) {
           console.error('Error adding player:', error.message);
-          // Handle error, e.g., show an error message to the user
         }
       };
     
