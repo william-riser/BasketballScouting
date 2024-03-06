@@ -79,6 +79,22 @@ app.get("/players/:id", (req, res) => {
   );
 });
 
+// Gets Stat based on player ID
+app.get("/stats/player/:id", (req, res) => {
+  const { id } = req.params;
+  db.all(
+    `SELECT * FROM Stat WHERE player_id = ?`,
+    [id], // Parameterized input
+    (err, rows) => {
+      if (err) {
+        res.status(400).json({ error: err.message });
+      } else {
+        res.json({ data: rows });
+      }
+    }
+  );
+});
+
 app.post("/new-data", (req, res) => {
   res.send("Data added"); 
 });

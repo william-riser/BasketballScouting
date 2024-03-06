@@ -28,7 +28,7 @@ const HomePage = () => {
   return (
             <div className="min-h-screen flex flex-col items-center inset-0 justify-center bg-gray-100 relative" style={{ backgroundImage: "url(/public/bg.jpg)" }}>
 
-                <div className="absolute inset-0 bg-gray-800 opacity-50"></div> 
+                <div className="absolute inset-0 bg-gray-800 opacity-35"></div> 
 
                 <h1 className="text-5xl font-bold text-white mb-8 z-10" >Basketball Scouting</h1>
 
