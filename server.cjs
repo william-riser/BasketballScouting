@@ -49,7 +49,7 @@ app.get("/players", (req, res) => {
   const { name } = req.query;
   db.all(
     `SELECT * FROM Player WHERE name LIKE ?`,
-    ['%'+name+'%'],
+    ["%" + name + "%"],
     (err, rows) => {
       if (err) {
         res.status(400).json({ error: err.message });
@@ -60,10 +60,20 @@ app.get("/players", (req, res) => {
   );
 });
 
-
-
-
-
+app.get("/players/:id", (req, res) => {
+  const { id } = req.params;
+  db.all(
+    `SELECT * FROM Player WHERE player_id = ?`,
+    [id], // Parameterized input
+    (err, rows) => {
+      if (err) {
+        res.status(400).json({ error: err.message });
+      } else {
+        res.json({ data: rows });
+      }
+    }
+  );
+});
 
 app.post("/new-data", (req, res) => {
   // Implement logic to insert data using req.body

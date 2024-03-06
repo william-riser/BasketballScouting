@@ -2,10 +2,14 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const SearchResultsPage = () => {
     const [searchParams] = useSearchParams(); // Get search parameters
     const searchTerm = searchParams.get("name");
+    const navigate = useNavigate(); // Initialize useNavigate
+
+
 
     const [playerData, setPlayerData] = useState([]);
 
@@ -22,6 +26,9 @@ const SearchResultsPage = () => {
         fetchData();
     }, []);
 
+    const handleClick = (playerId) => {
+        navigate(`/playerCard?id=${playerId}`); 
+    };
 
     return (
         <div className="container mx-auto p-6"> {/* Main container */}
@@ -31,7 +38,12 @@ const SearchResultsPage = () => {
 
             <ul className="list-none p-0"> {/* Remove default list style */}
                 {playerData.map((player) => (
-                    <li key={player.id} className="mb-4 bg-white shadow-md rounded-lg p-4">
+                    <li 
+                        key={player.id} 
+                        className="mb-4 bg-white shadow-md rounded-lg p-4 cursor-pointer"
+                        onClick={() => handleClick(player.player_id)}
+                        >
+
                         <div className="flex items-center"> {/* Player info */}
                             <strong className="font-semibold text-lg mr-4">Name:</strong> 
                             <span>{player.name}</span>

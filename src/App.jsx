@@ -5,29 +5,16 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import TestPage from './components/TestPage';
 import HomePage from './components/home';
 import SearchResultsPage from './components/searchResults';
+import PlayerCard from './components/playerCard';
 
 function App() {
-  const [searchResults, setSearchResults] = useState([]);
-
-  const handleSearch = async () => {
-    const fetchData = async () => {
-        try {
-            const result = await axios.get('http://localhost:3001/data');
-            setSearchResults(result.data.data); 
-        } catch (error) {
-            console.error(error);
-        }
-    };
-    fetchData();
-};
-
-
   return (
     <BrowserRouter> 
       <div>
         <Routes>
-          <Route path="/" element={<HomePage handleSearch={handleSearch} />} />
-          <Route path="/searchResults" element={<SearchResultsPage searchResults={searchResults} />} />
+          <Route path="/" element={<HomePage/>} />
+          <Route path="/searchResults" element={<SearchResultsPage  />} />
+          <Route path="/playerCard" element={<PlayerCard />} />
         </Routes>
       </div>
     </BrowserRouter>
