@@ -7,13 +7,12 @@ const dbPath = path.resolve(__dirname, "Points1-7/basketball.sqlite3");
 const db = new sqlite3.Database(dbPath);
 
 const app = express();
-const port = 3001; // Or another port of your choice
+const port = 3001; 
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Example API endpoints:
 app.get("/data", (req, res) => {
   db.all(
     `SELECT * 
@@ -76,9 +75,26 @@ app.get("/players/:id", (req, res) => {
 });
 
 app.post("/new-data", (req, res) => {
-  // Implement logic to insert data using req.body
-  res.send("Data added"); // Adjust the response as needed
+  res.send("Data added"); 
 });
+
+app.post('/addPlayer', (req, res) => {
+  const { school_id, name, age, height, weight, position } = req.body;
+
+  // Insert player into the database
+  const sql = 'INSERT INTO Player (school_id, name, age, height, weight, position) VALUES (?, ?, ?, ?, ?, ?)';
+  const values = [school_id, name, age, height, weight, position];
+
+  db.run(sql, values, function (err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    // Player successfully added
+    res.json({ message: 'Player added successfully', player_id: this.lastID });
+  });
+});
+
 
 // Start the server
 app.listen(port, () => {
