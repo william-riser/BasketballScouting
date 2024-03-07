@@ -12,6 +12,7 @@ const PlayerCard = () => {
 
     const [playerData, setPlayerData] = useState([]); 
     const [statData, setStatData] = useState([]);
+    const [scoutingReport, setScoutingReport] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,6 +35,20 @@ const PlayerCard = () => {
                 const result = await axios.get(`http://localhost:3001/stats/player/${playerID}`);
                 setStatData(result.data.data);
                 console.log("Stat Data:", statData);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const playerID = parseInt(searchTerm);
+                const result = await axios.get(`http://localhost:3001/scoutingReport/player/${playerID}`);
+                setScoutingReport(result.data.data);
+                console.log("Scouting Report:", scoutingReport);
             } catch (error) {
                 console.error(error);
             }
@@ -93,10 +108,18 @@ const PlayerCard = () => {
     </button>
     <h2 className='text-2xl font-bold mt-6'>Stats</h2> 
     {statData.map((item) => (
-        <div className="card bg-gray-100 p-4 rounded-md shadow-md mt-4" key={item.id}> 
+        <div className="card bg-gray-100 p-4 rounded-md shadow-md mt-4" key={item.stat_id}> 
             <p className="font-medium">Type: {item.type}</p> 
             <p>Count: {item.count}</p>
             <p>Season {item.season}</p>
+        </div>
+    ))}
+    <h2 className='text-2xl font-bold mt-6'>Scouting Reports</h2> 
+    {scoutingReport.map((item) => (
+        <div className="card bg-gray-100 p-4 rounded-md shadow-md mt-4" key={item.scoutingReport_id}> 
+            <p>Strengths: {item.strengths}</p> 
+            <p>Weaknesses: {item.weaknesses}</p>
+            <p>Notes: {item.notes}</p>
         </div>
     ))}
 </div>

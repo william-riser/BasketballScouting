@@ -84,7 +84,7 @@ app.get("/stats/player/:id", (req, res) => {
   const { id } = req.params;
   db.all(
     `SELECT * FROM Stat WHERE player_id = ?`,
-    [id], // Parameterized input
+    [id],
     (err, rows) => {
       if (err) {
         res.status(400).json({ error: err.message });
@@ -99,6 +99,22 @@ app.post("/new-data", (req, res) => {
   res.send("Data added"); 
 });
 
+
+// Gets Scouting Report based on player ID
+app.get("/scoutingReport/player/:id", (req, res) => {
+  const { id } = req.params;
+  db.all(
+    `SELECT * FROM Scouting_Report WHERE player_id = ?`,
+    [id], 
+    (err, rows) => {
+      if (err) {
+        res.status(400).json({ error: err.message });
+      } else {
+        res.json({ data: rows });
+      }
+    }
+  );
+});
 
 
 
@@ -129,6 +145,9 @@ app.post('/addStat', (req, res) => {
     res.json({ message: 'Stat added successfully', player_id: this.lastID });
   });
 });
+
+
+
 
 // Deletes a player from the database
 app.delete('/players/:id', (req, res) => {
