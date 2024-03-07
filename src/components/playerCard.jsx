@@ -78,51 +78,67 @@ const PlayerCard = () => {
         navigate(`/addStat?id=${searchTerm}`);
     }
     
+    const scoutingReportClick = () => {
+        navigate(`/addScoutingReport?id=${searchTerm}`);
+    }
     
 
   return (
     <div className='container mx-auto p-6'>
-    <a href="/" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full inline-block m-3'>Home</a>
-    <button
-        onClick={handleDelete}
-        className="bg-red-500 text-white font-bold py-3 px-6 rounded-full inline-block m-3 hover:bg-red-600 focus:outline-none focus:shadow-outline-red active:bg-red-800"
-    >
-      Delete Player
-    </button>
-
-    <div className='player-profile flex items-start gap-6 mt-6'>  
-        <div className='player-info'>
-            <h1 className='text-3xl font-bold mb-2'>{playerData.name}</h1> 
-            <div className='player-stats grid grid-cols-2 gap-4'>
-                <p><span className='font-semibold'>Age:</span> {playerData.age}</p>
-                <p><span className='font-semibold'>Height:</span> {convertHeight(playerData.height)}</p>
-                <p><span className='font-semibold'>Position:</span> {playerData.position}</p> 
+            <div className='flex flex-col items-center gap-4 mb-4'> {/* Buttons container */}
+                <a href="/" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full'>Home</a>
+                <button
+                    onClick={handleDelete}
+                    className="bg-red-500 text-white font-bold py-3 px-6 rounded-full hover:bg-red-600 focus:outline-none focus:shadow-outline-red active:bg-red-800"
+                >
+                    Delete Player
+                </button>
             </div>
-        </div> 
-    </div>
-    <button
-        onClick={statClick}
-        className="bg-blue-500 text-white font-bold py-3 px-6 rounded-full inline-block m-3 hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
-    > 
-        Add Stat
-    </button>
-    <h2 className='text-2xl font-bold mt-6'>Stats</h2> 
-    {statData.map((item) => (
-        <div className="card bg-gray-100 p-4 rounded-md shadow-md mt-4" key={item.stat_id}> 
-            <p className="font-medium">Type: {item.type}</p> 
-            <p>Count: {item.count}</p>
-            <p>Season {item.season}</p>
-        </div>
-    ))}
-    <h2 className='text-2xl font-bold mt-6'>Scouting Reports</h2> 
-    {scoutingReport.map((item) => (
-        <div className="card bg-gray-100 p-4 rounded-md shadow-md mt-4" key={item.scoutingReport_id}> 
-            <p>Strengths: {item.strengths}</p> 
-            <p>Weaknesses: {item.weaknesses}</p>
-            <p>Notes: {item.notes}</p>
-        </div>
-    ))}
-</div>
+
+            <div className='player-profile flex flex-col md:flex-row items-start gap-6 mt-6'> {/* Player info section */}
+                <div className='player-info w-full md:w-1/2 bg-gray-100 p-6 rounded-lg shadow-md'> 
+                    <h1 className='text-3xl font-bold mb-4'>{playerData.name}</h1>
+                    <div className='player-stats grid grid-cols-2 gap-4'>
+                        <p className='text-lg'><span className='font-semibold'>Age:</span> {playerData.age}</p>
+                        <p className='text-lg'><span className='font-semibold'>Height:</span> {convertHeight(playerData.height)}</p>
+                        <p className='text-lg'><span className='font-semibold'>Position:</span> {playerData.position}</p>
+                    </div>
+                </div> 
+
+                <div className='stats-section w-full md:w-1/2 mt-6 md:mt-0'> {/* Stats & scouting report */}
+                    <button
+                        onClick={statClick}
+                        className="bg-blue-500 text-white font-bold py-3 px-6 rounded-full inline-block mb-4 hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
+                    > 
+                        Add Stat
+                    </button>
+
+                    <h2 className='text-2xl font-bold mb-4'>Stats</h2> 
+                    {statData.map((item) => (
+                        <div className="card bg-gray-100 p-4 rounded-md shadow-md mt-2" key={item.stat_id}> 
+                            <p className="font-medium">Type: {item.type}</p> 
+                            <p>Count: {item.count}</p>
+                            <p>Season {item.season}</p>
+                        </div>
+                    ))}
+
+                    <button
+                        onClick={scoutingReportClick}
+                        className="bg-blue-500 text-white font-bold mt-6 py-3 px-6 rounded-full inline-block mb-4 hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
+                    > 
+                        Add Scouting Report
+                    </button>
+                    <h2 className='text-2xl font-bold'>Scouting Reports</h2> 
+                    {scoutingReport.map((item) => (
+                        <div className="card bg-gray-100 p-4 rounded-md shadow-md mt-2" key={item.scoutingReport_id}> 
+                            <p>Strengths: {item.strengths}</p> 
+                            <p>Weaknesses: {item.weaknesses}</p>
+                            <p>Notes: {item.notes}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+       </div>
   );
 };
 
