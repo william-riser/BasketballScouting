@@ -58,6 +58,10 @@ const PlayerCard = () => {
           // Handle error, e.g., show an error message to the user
         }
       };
+
+    const statClick =() => {
+        navigate(`/addStat?id=${searchTerm}`);
+    }
     
     
 
@@ -81,7 +85,12 @@ const PlayerCard = () => {
             </div>
         </div> 
     </div>
-
+    <button
+        onClick={statClick}
+        className="bg-blue-500 text-white font-bold py-3 px-6 rounded-full inline-block m-3 hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
+    > 
+        Add Stat
+    </button>
     <h2 className='text-2xl font-bold mt-6'>Stats</h2> 
     {statData.map((item) => (
         <div className="card bg-gray-100 p-4 rounded-md shadow-md mt-4" key={item.id}> 

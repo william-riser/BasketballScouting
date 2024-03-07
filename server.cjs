@@ -100,6 +100,8 @@ app.post("/new-data", (req, res) => {
 });
 
 
+
+
 // Adds a new player to the database
 app.post('/addPlayer', (req, res) => {
   const { school_id, name, age, height, weight, position } = req.body;
@@ -111,6 +113,20 @@ app.post('/addPlayer', (req, res) => {
       return res.status(500).json({ error: err.message });
     }
     res.json({ message: 'Player added successfully', player_id: this.lastID });
+  });
+});
+
+// Adds a new stat to the database
+app.post('/addStat', (req, res) => {
+  const { player_id, season, type, count } = req.body;
+  const sql = 'INSERT INTO Stat (player_id, season, type, count) VALUES (?, ?, ?, ?)';
+  const values = [player_id, season, type, count];
+
+  db.run(sql, values, function (err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({ message: 'Stat added successfully', player_id: this.lastID });
   });
 });
 

@@ -1,34 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
+import CustomAlert from './customAlert';
 
 
 
 const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
 
 
   const navigate = useNavigate(); 
   const handleSearch = async () => {
-      const fetchData = async () => {
-          try {
-              const result = await axios.get('http://localhost:3001/data');
-              console.log("API Response:", result.data.data); 
-              setSearchTerm(result.data.data); 
-              navigate(`/searchResults?name=${searchTerm}`); 
-          } catch (error) {
-              console.error(error);
-          }
-      };
-      fetchData();
+    // Validate if searchTerm is not empty
+    if (!searchTerm.trim()) {
+        setShowAlert(true);
+        return;
+      }
+
+    try {
+      const result = await axios.get(`http://localhost:3001/data?name=${searchTerm}`);
+      console.log('API Response:', result.data.data);
+      navigate(`/searchResults?name=${searchTerm}`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const closeAlert = () => {
+    setShowAlert(false);
   };
 
 
 
   return (
             <div className="min-h-screen flex flex-col items-center inset-0 justify-center bg-gray-100 relative" style={{ backgroundImage: "url(/public/bg.jpg)" }}>
-
+                
                 <div className="absolute inset-0 bg-gray-800 opacity-35"></div> 
+
+                {showAlert && (
+                        <CustomAlert
+                        message="Please enter a player name."
+                        onClose={closeAlert}
+                        className="z-50"
+                        />
+                    )}
 
                 <h1 className="text-5xl font-bold text-white mb-8 z-10" >Basketball Scouting</h1>
 
@@ -36,7 +52,7 @@ const HomePage = () => {
                     <div className="flex items-center">
                         <input 
                             type="text" 
-                            placeholder="Player Name..." 
+                            placeholder="Player Name..."
                             className="flex-grow px-4 py-2 border rounded-l-md focus:outline-none focus:ring-blue-400" 
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
