@@ -28,7 +28,7 @@ const AddStat = () =>{
     
       try {
         const response = await axios.post('http://localhost:3001/addStat', formData);
-          navigate('/playerCardid=${searchTerm}');
+          navigate(`/playerCard?id=${searchTerm}`);
         console.log(response.data);
       } catch (error) {
         console.error('Error adding stat:', error.message);
