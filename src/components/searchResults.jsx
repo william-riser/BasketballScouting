@@ -35,9 +35,9 @@ const SearchResultsPage = () => {
 
     return (
         <div className="container mx-auto p-6"> 
-            <a href="/" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full inline-block m-3'>Home</a>
-            <a href='/addPlayer' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full inline-block m-3'>Add Player</a>
-            <h1 className="text-4xl font-bold text-blue-600 mb-4">Search Results</h1>
+            <a href="/" className='bg-orange-600 hover:bg-orange-800 text-white font-bold py-2 px-4 rounded-full inline-block m-3'>Home</a>
+            <a href='/addPlayer' className='bg-orange-600 hover:bg-orange-800 text-white font-bold py-2 px-4 rounded-full inline-block m-3'>Add Player</a>
+            <h1 className="text-4xl font-bold text-orange-600 mb-4">Search Results</h1>
             <p className="mb-4 px-2 bg-gray-100 rounded-md">Count: {playerData.length}</p>
 
             <ul className="list-none p-0"> 

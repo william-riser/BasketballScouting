@@ -46,6 +46,24 @@ app.get("/api/stats", (req, res) => {
   );
 });
 
+
+// Get all draft boards
+app.get("/draftBoards", (req, res) => {
+  db.all(
+    `SELECT *
+          FROM Draft_Board`,
+
+    (err, rows) => {
+      if (err) {
+        res.status(400).json({ error: err.message });
+      } else {
+        res.json({ data: rows });
+      }
+    }
+  );
+});
+
+
 // Gets players based on name
 app.get("/players", (req, res) => {
   const { name } = req.query;
@@ -94,21 +112,58 @@ app.post("/new-data", (req, res) => {
   res.send("Data added");
 });
 
-// Gets Scouting Report based on player ID
-app.get("/scoutingReport/player/:id", (req, res) => {
+
+// Gets draft board based on ID
+app.get("/draftBoards/:id", (req, res) => {
   const { id } = req.params;
-  db.all(
-    `SELECT * FROM Scouting_Report WHERE player_id = ?`,
-    [id],
-    (err, rows) => {
-      if (err) {
-        res.status(400).json({ error: err.message });
-      } else {
-        res.json({ data: rows });
+    db.all(
+      `SELECT * FROM Draft_Board WHERE draft_board_id = ?`,
+      [id],
+      (err, rows) => {
+        if (err) {
+          res.status(400).json({ error: err.message });
+        } else {
+          res.json({ data: rows });
+        }
       }
-    }
-  );
-});
+    );
+  });
+
+  app.get("/draftPicks/:id", (req, res) => {
+    const { id } = req.params;
+    db.all(
+      `SELECT * 
+      FROM Draft_Pick 
+        INNER JOIN Player ON Draft_Pick.player_id = Player.player_id
+      WHERE draft_board_id = ? 
+      ORDER BY pick_number ASC
+      `,
+      [id],
+      (err, rows) => {
+        if (err) {
+          res.status(400).json({ error: err.message });
+        } else {
+          res.json({ data: rows });
+        }
+      }
+    );
+  });
+
+  // Gets Scouting Report based on player ID
+  app.get("/scoutingReport/player/:id", (req, res) => {
+    const { id } = req.params;
+    db.all(
+      `SELECT * FROM Scouting_Report WHERE player_id = ?`,
+      [id],
+      (err, rows) => {
+        if (err) {
+          res.status(400).json({ error: err.message });
+        } else {
+          res.json({ data: rows });
+        }
+      }
+    );
+  });
 
 // Adds a new player to the database
 app.post("/addPlayer", (req, res) => {

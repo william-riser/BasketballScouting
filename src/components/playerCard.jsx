@@ -84,61 +84,73 @@ const PlayerCard = () => {
     
 
   return (
-    <div className='container mx-auto p-6'>
-            <div className='flex flex-col items-center gap-4 mb-4'> {/* Buttons container */}
-                <a href="/" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full'>Home</a>
+    <div className='container mx-auto p-6 bg-gradient-to-br from-gray-100 to-gray-200'> 
+            <div className='fflex items-center justify-between gap-4 mb-4'> 
+                <a href="/" className='bg-orange-600 hover:bg-orange-800 text-white font-bold py-3 px-6 rounded-full order-1'>Home</a>
                 <button
                     onClick={handleDelete}
-                    className="bg-red-500 text-white font-bold py-3 px-6 rounded-full hover:bg-red-600 focus:outline-none focus:shadow-outline-red active:bg-red-800"
+                    className="btn-danger bg-red-700 text-white font-bold py-3 px-6 rounded-full hover:bg-red-900 focus:outline-none focus:shadow-outline-red active:bg-red-800 order-2"
                 >
                     Delete Player
                 </button>
             </div>
 
-            <div className='player-profile flex flex-col md:flex-row items-start gap-6 mt-6'> {/* Player info section */}
+            <div className='player-profile flex flex-col md:flex-row gap-6 mt-6 hover:shadow-3xl'> 
                 <div className='player-info w-full md:w-1/2 bg-gray-100 p-6 rounded-lg shadow-md'> 
-                    <h1 className='text-3xl font-bold mb-4'>{playerData.name}</h1>
+                    <h1 className='text-4xl font-black mb-4'>{playerData.name}</h1>
                     <div className='player-stats grid grid-cols-2 gap-4'>
-                        <p className='text-lg'><span className='font-semibold'>Age:</span> {playerData.age}</p>
-                        <p className='text-lg'><span className='font-semibold'>Height:</span> {convertHeight(playerData.height)}</p>
-                        <p className='text-lg'><span className='font-semibold'>Position:</span> {playerData.position}</p>
+                        <div className='text-lg'>
+                            <span className='font-semibold'>Age:</span> {playerData.age}
+                        </div>
+                        <div className='text-lg'>
+                            <span className='font-semibold'>Height:</span> {convertHeight(playerData.height)}
+                        </div>
+                        <div className='text-lg'>
+                            <span className='font-semibold'>Position:</span> {playerData.position}
+                        </div>
+                        <div className='text-lg'>
+                            <span className='font-semibold'>Weight:</span> {playerData.weight} lbs
+                            </div>
                     </div>
                 </div> 
 
-                <div className='stats-section w-full md:w-1/2 mt-6 md:mt-0'> {/* Stats & scouting report */}
-                    <button
-                        onClick={statClick}
-                        className="bg-blue-500 text-white font-bold py-3 px-6 rounded-full inline-block mb-4 hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
-                    > 
-                        Add Stat
-                    </button>
-
-                    <h2 className='text-2xl font-bold mb-4'>Stats</h2> 
+                <div className='stats-section w-full md:w-1/2 mt-6 md:mt-0'> 
+                    <div className='flex justify-between items-center mb-4'>
+                        <h2 className='text-2xl font-bold text-orange-700'>Stats</h2> 
+                        <button
+                            onClick={statClick}
+                            className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-orange-800 transition-colors duration-200"
+                        > 
+                            Add Stat
+                        </button>
+                    </div>
                     {statData.map((item) => (
-                        <div className="card bg-gray-100 p-4 rounded-md shadow-md mt-2" key={item.stat_id}> 
-                            <p className="font-medium">Type: {item.type}</p> 
-                            <p>Count: {item.count}</p>
-                            <p>Season {item.season}</p>
+                        <div className="card bg-gradient-to-r from-orange-200 to-orange-300 p-4 rounded-md shadow-xl mt-2 transition-all duration-200 hover:shadow-2xl" key={item.stat_id}> 
+                            <p className="font-medium text-gray-700">Type: {item.type}</p> 
+                            <p className="text-gray-600">Count: {item.count}</p>
+                            <p className="text-gray-600">Season {item.season}</p>
                         </div>
                     ))}
 
-                    <button
-                        onClick={scoutingReportClick}
-                        className="bg-blue-500 text-white font-bold mt-6 py-3 px-6 rounded-full inline-block mb-4 hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
-                    > 
-                        Add Scouting Report
-                    </button>
-                    <h2 className='text-2xl font-bold'>Scouting Reports</h2> 
+<div className='flex justify-between items-center mt-6'>
+                        <h2 className='text-2xl font-bold text-orange-700'>Scouting Reports</h2>
+                        <button
+                            onClick={scoutingReportClick}
+                            className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-orange-800 transition-colors duration-200"
+                        > 
+                            Add Scouting Report
+                        </button>
+                    </div>
                     {scoutingReport.map((item) => (
-                        <div className="card bg-gray-100 p-4 rounded-md shadow-md mt-2" key={item.scoutingReport_id}> 
-                            <p>Strengths: {item.strengths}</p> 
-                            <p>Weaknesses: {item.weaknesses}</p>
-                            <p>Notes: {item.notes}</p>
+                        <div className="card bg-gradient-to-r from-orange-200 to-orange-300 p-4 rounded-md shadow-xl mt-2 transition-all duration-200 hover:shadow-2xl" key={item.scoutingReport_id}> 
+                            <p className="font-medium text-gray-700">Strengths: {item.strengths}</p> 
+                            <p className="text-gray-600">Weaknesses: {item.weaknesses}</p>
+                            <p className="text-gray-600">Notes: {item.notes}</p>
                         </div>
                     ))}
                 </div>
             </div>
-       </div>
+        </div>
   );
 };
 

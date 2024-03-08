@@ -6,6 +6,8 @@ import PlayerCard from './components/playerCard';
 import AddPlayer from './components/addPlayer';
 import AddStat from './components/addStat';
 import AddScoutingReport from './components/addScoutingReport';
+import DraftBoard from './components/draftBoard';
+import DraftBoardViewer from './components/boardViewer';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/addPlayer" element={<AddPlayer />} />
           <Route path="/addStat" element={<AddStat />} />
           <Route path="/addScoutingReport" element={<AddScoutingReport />} />
+          <Route path="/draftBoard" element={<DraftBoard />} />
+          <Route path="/boardViewer" element={<DraftBoardViewer />} />
         </Routes>
       </div>
     </BrowserRouter>
